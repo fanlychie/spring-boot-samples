@@ -23,6 +23,7 @@ public class UserRepositoryTest {
         User user = new User();
         user.setName("fanlychie");
         userRepository.save(user);
+        System.out.println(userRepository.findAll());
     }
 
 }
