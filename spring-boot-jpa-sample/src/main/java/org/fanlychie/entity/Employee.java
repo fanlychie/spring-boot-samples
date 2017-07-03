@@ -5,10 +5,8 @@ import org.fanlychie.enums.Sex;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import java.util.Date;
 
 /**
@@ -33,9 +31,6 @@ public class Employee {
     private Double salary;
 
     private Date hireDate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Department department;
 
     public Long getId() {
         return id;
@@ -91,14 +86,6 @@ public class Employee {
 
     public void setHireDate(Date hireDate) {
         this.hireDate = hireDate;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
     }
 
 }

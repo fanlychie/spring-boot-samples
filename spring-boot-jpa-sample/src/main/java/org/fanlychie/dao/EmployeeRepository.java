@@ -1,11 +1,11 @@
 package org.fanlychie.dao;
 
 import org.fanlychie.entity.Employee;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * Created by fanlychie on 2017/6/30.
  */
-public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
 }
