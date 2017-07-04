@@ -47,10 +47,30 @@ public class ApplicationTest {
     }
 
     @Test
-    public void testDeleteNonExistentEntity() {
+    public void testInsert() {
         Employee employee = new Employee();
-        employee.setId(1001L);
-        employeeRepository.delete(employee);
+        employee.setId(100L);
+        employee.setAge(26);
+        employeeRepository.save(employee);
+    }
+
+    @Test
+    public void testDeleteById() {
+        employeeRepository.delete(7L);
+    }
+
+    @Test
+    public void testDeleteByEntity() {
+        Employee employee = new Employee();
+        employee.setId(2L); // 此 ID 在数据库中存在
+        employeeRepository.delete(employee); // 产生 SELECT 和 DELETE
+    }
+
+    @Test
+    public void testDeleteByNonExistentEntity() {
+        Employee employee = new Employee();
+        employee.setId(20L); // 此 ID 在数据库中不存在
+        employeeRepository.delete(employee); // 产生 SELECT 和 INSERT 及 DELETE
     }
 
 }
