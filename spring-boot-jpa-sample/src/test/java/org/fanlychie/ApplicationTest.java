@@ -31,4 +31,26 @@ public class ApplicationTest {
         employeeRepository.save(employee);
     }
 
+    @Test
+    public void testUpdate() {
+        Employee employee = employeeRepository.findByName("张三丰");
+        employee.setAge(25);
+        employeeRepository.save(employee);
+    }
+
+    @Test
+    public void testUpdateById() {
+        Employee employee = new Employee();
+        employee.setId(1L);
+        employee.setAge(26);
+        employeeRepository.save(employee);
+    }
+
+    @Test
+    public void testDeleteNonExistentEntity() {
+        Employee employee = new Employee();
+        employee.setId(1001L);
+        employeeRepository.delete(employee);
+    }
+
 }
