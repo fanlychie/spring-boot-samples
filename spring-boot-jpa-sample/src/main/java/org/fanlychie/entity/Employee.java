@@ -7,12 +7,38 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import java.util.Date;
 
 /**
  * Created by fanlychie on 2017/6/30.
  */
 @Entity(name = "Employee")
+@NamedQueries({
+        @NamedQuery(
+                name = "Employee.selectBySex",
+                query = "SELECT E FROM Employee E WHERE E.sex = ?1"
+        ),
+        @NamedQuery(
+                name = "Employee.selectByName",
+                query = "SELECT E FROM Employee E WHERE E.name = ?1"
+        )
+})
+@NamedNativeQueries({
+        @NamedNativeQuery(
+                name = "Employee.searchBySex",
+                query = "SELECT * FROM EMPLOYEE WHERE SEX = ?1",
+                resultClass = Employee.class
+        ),
+        @NamedNativeQuery(
+                name = "Employee.searchByName",
+                query = "SELECT * FROM EMPLOYEE WHERE NAME = ?1",
+                resultClass = Employee.class
+        )
+})
 public class Employee {
 
     @Id
@@ -86,6 +112,19 @@ public class Employee {
 
     public void setHireDate(Date hireDate) {
         this.hireDate = hireDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sex=" + sex +
+                ", age=" + age +
+                ", married=" + married +
+                ", salary=" + salary +
+                ", hireDate=" + hireDate +
+                '}';
     }
 
 }
