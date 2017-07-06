@@ -19,6 +19,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,6 +39,10 @@ public class ApplicationTest {
         Employee employee = new Employee();
         employee.setName("张三丰");
         employee.setAge(24);
+        employee.setHireDate(new Date());
+        employee.setMarried(false);
+        employee.setSalary(16000.D);
+        employee.setSex(Sex.MALE);
         employeeRepository.save(employee);
     }
 
@@ -175,8 +180,70 @@ public class ApplicationTest {
 
     @Test
     public void testSearchByName() {
-        Object employee = employeeRepository.searchByName("张三丰");
+        Employee employee = employeeRepository.searchByName("张三丰");
         System.out.println(employee);
+    }
+
+    @Test
+    public void testFindByAgeLessThanAndMarriedIsFalseOrderByAge() {
+        employeeRepository.findByAgeLessThanAndMarriedIsFalseOrderByAge(28)
+                .forEach(System.out::println);
+    }
+
+    @Test
+    public void testQueryOneByName() {
+        Employee employee = employeeRepository.queryOneByName("张三丰");
+        System.out.println(employee);
+    }
+
+    @Test
+    public void testQueryOneByNameNative() {
+        Employee employee = employeeRepository.queryOneByNameNative("张三丰");
+        System.out.println(employee);
+    }
+
+    @Test
+    public void testQueryNameLike() {
+        employeeRepository.queryNameLike("三丰")
+                .forEach(System.out::println);
+    }
+
+    @Test
+    public void testQueryBySexPagination() {
+        Page<Employee> page = employeeRepository.queryBySexPagination(Sex.FEMALE, new PageRequest(0, 2));
+        page.forEach(System.out::println);
+    }
+
+    /*
+    @Test
+    public void testQueryBySexPaginationNative() {
+        Page<Employee> page = employeeRepository.queryBySexPaginationNative(Sex.FEMALE, new PageRequest(0, 2));
+        page.forEach(System.out::println);
+    }
+    */
+
+    @Test
+    public void testQueryBySexAndSort() {
+        employeeRepository.queryBySexAndSort(Sex.FEMALE, new Sort("age"))
+                .forEach(System.out::println);
+    }
+
+    @Test
+    public void testQueryByNameSpEL() {
+        Employee employee = employeeRepository.queryByNameSpEL("张三丰");
+        System.out.println(employee);
+    }
+
+    @Test
+    public void testUpdateSalaryForName() {
+        int result = employeeRepository.updateSalaryForName("张三丰", 18000.D);
+        System.out.println(result);
+    }
+
+    @Test
+    public void testDeleteByName() {
+        int result = employeeRepository.deleteByName("张三丰");
+        System.out.println(result);
     }
 
 }
