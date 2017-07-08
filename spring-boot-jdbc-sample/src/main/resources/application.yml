@@ -1,0 +1,10 @@
+spring:
+  main:
+    banner-mode: 'off'
+  datasource:
+    url: jdbc:mysql://127.0.0.1/test
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    tomcat:
+      default-auto-commit: true
