@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 引用 Spring Boot 的 defaults.xml 的配置 -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <!-- 定义 LOG_FILE 变量 -->
+    <!-- 日志文件优先使用 logging.file 的值，如果没有则使用 logging.path 的值，如果还没有则放入临时目录 -->
+    <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}/}spring.log}"/>
+    <!-- 自定义日志级别 -->
+    <logger name="org.springframework.web" level="INFO"/>
+    <logger name="org.fanlychie" level="INFO"/>
+    <!-- 开发环境日志 -->
+    <springProfile name="dev">
+        <!-- 引用 Spring Boot 的 console-appender.xml 的配置 -->
+        <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+        <!-- root 日志级别 -->
+        <root level="WARN">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+    <!-- 生产环境日志 -->
+    <springProfile name="prod">
+        <!-- 引用 Spring Boot 的 console-appender.xml 的配置 -->
+        <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+        <!-- 自定义文件日志 -->
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <encoder>
+                <!-- 使用默认的日志格式 -->
+                <pattern>${FILE_LOG_PATTERN}</pattern>
+            </encoder>
+            <!-- 日志文件 -->
+            <file>${LOG_FILE}</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+                <!-- 如果日志文件超出大小限制, 则以 ${LOG_FILE}.1, ${LOG_FILE}.2... 备份 -->
+                <fileNamePattern>${LOG_FILE}.%i</fileNamePattern>
+            </rollingPolicy>
+            <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+                <!-- 超出大小限制开启一个新的文件 -->
+                <MaxFileSize>10MB</MaxFileSize>
+            </triggeringPolicy>
+        </appender>
+        <!-- root 日志级别 -->
+        <root level="WARN">
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+</configuration>
