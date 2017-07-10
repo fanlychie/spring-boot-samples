@@ -1,0 +1,20 @@
+spring:
+  profiles:
+    active: dev-test
+---
+spring:
+  profiles: test
+custom:
+  env: test-env
+---
+spring:
+  profiles: prod
+custom:
+  env: prod-env
+---
+spring.profiles: dev-test
+spring:
+  profiles:
+    include:
+      - dev
+      - test
