@@ -1,0 +1,9 @@
+body {
+    padding: 0;
+    color: #444;
+    width: 280px;
+    margin: 100px auto;
+    font-family: SimSun;
+    background-color: #FBFBFB;
+    text-shadow: rgba(50,50,50,0.3) 2px 2px 3px;
+}
