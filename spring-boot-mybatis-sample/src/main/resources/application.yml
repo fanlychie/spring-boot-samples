@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1/test
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    tomcat:
+      default-auto-commit: true
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: org.fanlychie.entity
+
+logging:
+  level:
+    root: WARN
+    org.fanlychie.mapper: DEBUG
