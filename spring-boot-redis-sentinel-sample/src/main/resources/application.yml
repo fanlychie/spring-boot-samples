@@ -1,0 +1,18 @@
+spring:
+  redis:
+    host: 10.10.10.127
+    port: 6379
+    database: 0
+    timeout: 5000
+    pool:
+      max-active: 8
+      max-idle: 8
+      min-idle: 4
+      max-wait: 30000
+    sentinel:
+      master: mymaster
+      nodes: 10.10.10.127:26379,10.10.10.128:26379,10.10.10.129:26379
+
+logging:
+  level:
+    root: warn
