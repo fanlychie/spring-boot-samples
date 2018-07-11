@@ -13,18 +13,18 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class ApplicationConfig {
 
     @Bean
-    public RedisTemplate<?, ?> redisTemplateRegister(RedisConnectionFactory redisConnectionFactory) {
-        RedisTemplate<?, ?> redisTemplate = new RedisTemplate<>();
+    public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<?, ?> template = new RedisTemplate<>();
+        template.setConnectionFactory(redisConnectionFactory);
         // 字符串序列化
         RedisSerializer stringRedisSerializer = new StringRedisSerializer();
         // 对象转为JSON串序列化
         RedisSerializer jsonRedisSerializer = new GenericJackson2JsonRedisSerializer(new ObjectMapper());
-        redisTemplate.setKeySerializer(stringRedisSerializer);
-        redisTemplate.setValueSerializer(jsonRedisSerializer);
-        redisTemplate.setHashKeySerializer(stringRedisSerializer);
-        redisTemplate.setHashValueSerializer(jsonRedisSerializer);
-        redisTemplate.setConnectionFactory(redisConnectionFactory);
-        return redisTemplate;
+        template.setKeySerializer(stringRedisSerializer);
+        template.setValueSerializer(jsonRedisSerializer);
+        template.setHashKeySerializer(stringRedisSerializer);
+        template.setHashValueSerializer(jsonRedisSerializer);
+        return template;
     }
 
 }
