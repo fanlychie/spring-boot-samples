@@ -1,0 +1,28 @@
+spring:
+  activemq:
+    # 链接地址, 采用故障转移策略
+    broker-url: failover:(tcp://10.10.10.127:61616,tcp://10.10.10.128:61616)?randomize=false&timeout=3000
+    # 连接池配置
+    pool:
+      # 开启连接池
+      enabled: true
+      # 最大的连接数, 默认值是1, 可以适当调大一些
+      max-connections: 8
+      # 连接的空闲时间, 超时则回收, 默认是30秒, 可以适当调大一些, 提高连接的重用时间
+      idle-timeout: 180000
+      # 每个连接最大的会话数, 默认是500, 可以适当调小一些
+      maximum-active-session-per-connection: 300
+
+# 自定义属性
+activemq:
+  # 队列名称
+  queue-name:
+    # 测试队列1
+    test1: QUEUE_TEST1
+    # 测试队列2
+    test2: QUEUE_TEST2
+
+# 日志配置
+logging:
+  level:
+    root: warn
