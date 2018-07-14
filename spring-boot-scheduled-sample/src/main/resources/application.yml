@@ -1,0 +1,4 @@
+# 日志配置
+logging:
+  level:
+    root: warn
